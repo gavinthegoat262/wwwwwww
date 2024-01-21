@@ -1,0 +1,149 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #3498db; /* Blue background color */
+        }
+
+        #signup-container {
+            background-color: #ffffff; /* White container background */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #3498db; /* Blue text color */
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #3498db; /* Blue button color */
+            color: #ffffff; /* White text color */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2980b9; /* Darker blue on hover */
+        }
+
+        #confirmation-message {
+            display: none;
+            color: green;
+            font-weight: bold;
+        }
+
+        #youtube-link {
+            margin-top: 20px;
+            color: #3498db; /* Blue link color */
+            text-decoration: none;
+            font-weight: bold;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="signup-container">
+        <h1>Sign Up</h1>
+        <form id="signup-form" onsubmit="submitForm()">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <br>
+            <button type="submit">Sign Up</button>
+        </form>
+        <div id="confirmation-message">Signup successful! You will be redirected shortly.</div>
+        <a id="youtube-link" href="https://www.youtube.com/channel/UCd67DLCXDZzfDe6XvTcT7bA" target="_blank">Visit YouTube Channel</a>
+    </div>
+
+    <script>
+        function submitForm() {
+            // Get the email input value
+            const email = document.getElementById('email').value;
+
+            // You can perform additional actions here, such as sending the email to a server.
+
+            // Hide the form
+            document.getElementById('signup-form').style.display = 'none';
+
+            // Display confirmation message
+            document.getElementById('confirmation-message').style.display = 'block';
+
+            // Display YouTube link
+            document.getElementById('youtube-link').style.display = 'inline';
+
+            // Redirect to another page (optional)
+            // window.location.href = 'destination.html';
+        }
+    </script>
+<!-- Add this for the comment section -->
+<div id="comment-section">
+    <h2>Comments</h2>
+    <div id="comments-list">
+        <!-- Comments will be displayed here -->
+    </div>
+    <form id="comment-form" onsubmit="submitComment()">
+        <label for="comment">Leave a Comment:</label>
+        <textarea id="comment" name="comment" rows="4" required></textarea>
+        <br>
+        <button type="submit">Submit Comment</button>
+    </form>
+</div>
+
+<script>
+    // Load existing comments from local storage
+    window.onload = function () {
+        const savedComments = JSON.parse(localStorage.getItem('comments')) || [];
+        const commentsList = document.getElementById('comments-list');
+
+        savedComments.forEach(function (commentText) {
+            const newComment = document.createElement('div');
+            newComment.textContent = commentText;
+            commentsList.appendChild(newComment);
+        });
+    };
+
+    function submitComment() {
+        // Get the comment input value
+        const commentText = document.getElementById('comment').value;
+
+        // You can perform additional actions here, such as storing the comment on a server.
+
+        // Display the submitted comment
+        const commentsList = document.getElementById('comments-list');
+        const newComment = document.createElement('div');
+        newComment.textContent = commentText;
+        commentsList.appendChild(newComment);
+
+        // Save the comment to local storage
+        const savedComments = JSON.parse(localStorage.getItem('comments')) || [];
+        savedComments.push(commentText);
+        localStorage.setItem('comments', JSON.stringify(savedComments));
+
+        // Clear the comment input
+
+        // Prevent the form from submitting and refreshing the page
+        event.preventDefault();
+    }
+</script>
